@@ -11,6 +11,7 @@ namespace TradingJournal.core.Models
     {
         public decimal TotalRisk { get; set; }
         public decimal Amount { get; set; }
+        
         public decimal NominalPositionSize { get; set; }
         public decimal FinalPositionSize { get; set; }
         public decimal RR { get; set; }

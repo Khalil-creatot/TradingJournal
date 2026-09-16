@@ -14,7 +14,7 @@ namespace TradingJournal.core.Services
             decimal riskPercent,
             decimal entry,
             decimal stopLoss,
-            decimal takeprofit,
+            decimal takeProfit,
             int leverage = 1)
         {
             var slDistance = Math.Abs(entry - stopLoss);
@@ -30,7 +30,7 @@ namespace TradingJournal.core.Services
             var amount = totalRisk / slDistance;
             var nominalPositionSize = amount * entry;
             var finalPositionSize = nominalPositionSize / leverage;
-            var rr = Math.Abs(takeprofit - entry) / slDistance;
+            var rr = Math.Abs(takeProfit - entry) / slDistance;
 
 
             // Return the result as a PositionSizeResult object
