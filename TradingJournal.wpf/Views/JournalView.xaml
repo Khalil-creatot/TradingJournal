@@ -89,7 +89,8 @@
                     <StackPanel Grid.Column="0">
                         <TextBlock Text="Asset" Style="{StaticResource LabelStyle}"/>
                         <TextBox Text="{Binding Asset, UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{StaticResource InputStyle}"/>
+                                 Style="{StaticResource InputStyle}"
+                                 CharacterCasing="Upper"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="2">
@@ -128,25 +129,25 @@
 
                     <StackPanel Grid.Column="0">
                         <TextBlock Text="Entry" Style="{StaticResource LabelStyle}"/>
-                        <TextBox Text="{Binding Entry, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBox Text="{Binding Entry, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource InputStyle}"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="2">
                         <TextBlock Text="Stop Loss" Style="{StaticResource LabelStyle}"/>
-                        <TextBox Text="{Binding StopLoss, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBox Text="{Binding StopLoss, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource InputStyle}"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="4">
                         <TextBlock Text="Take Profit" Style="{StaticResource LabelStyle}"/>
-                        <TextBox Text="{Binding TakeProfit, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBox Text="{Binding TakeProfit, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource InputStyle}"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="6">
                         <TextBlock Text="Exit" Style="{StaticResource LabelStyle}"/>
-                        <TextBox Text="{Binding ExitPrice, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBox Text="{Binding ExitPrice, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource InputStyle}"/>
                     </StackPanel>
                 </Grid>
@@ -163,7 +164,7 @@
 
                     <StackPanel Grid.Column="0">
                         <TextBlock Text="Amount (enheter)" Style="{StaticResource LabelStyle}"/>
-                        <TextBox Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBox Text="{Binding Amount, UpdateSourceTrigger=LostFocus}"
                                  Style="{StaticResource InputStyle}"/>
                     </StackPanel>
 

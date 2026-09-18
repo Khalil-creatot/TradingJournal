@@ -1,28 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace TradingJournal.wpf.Views
 {
-    /// <summary>
-    /// Interaction logic for PositionCalculatorView.xaml
-    /// </summary>
     public partial class PositionCalculatorView : UserControl
     {
         public PositionCalculatorView()
         {
             InitializeComponent();
+        }
+
+        // Markerar all text när du tabbar in i ett fält
+        private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (sender is TextBox tb)
+                tb.SelectAll();
+        }
+
+        // Markerar all text när du klickar i ett fält
+        private void TextBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is TextBox tb && !tb.IsKeyboardFocusWithin)
+            {
+                e.Handled = true;
+                tb.Focus();
+            }
         }
     }
 }
