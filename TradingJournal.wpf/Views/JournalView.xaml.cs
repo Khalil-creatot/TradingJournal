@@ -1,0 +1,15 @@
+﻿using System.Windows.Controls;
+
+namespace TradingJournal.wpf.Views
+{
+    /// <summary>
+    /// Interaction logic for JournalView.xaml
+    /// </summary>
+    public partial class JournalView : UserControl
+    {
+        public JournalView()
+        {
+            InitializeComponent();
+        }
+    }
+}

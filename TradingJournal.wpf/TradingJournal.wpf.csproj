@@ -21,8 +21,4 @@
     <ProjectReference Include="..\TradingJournal.core\TradingJournal.core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
-
 </Project>

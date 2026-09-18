@@ -3,12 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using TradingJournal.core.Data;
 using TradingJournal.core.Interfaces;
-using TradingJournal.core.Data;
-using TradingJournal.core.Interfaces;
-using TradingJournal.wpf.ViewModels;
 using TradingJournal.wpf.ViewModels;
 
-namespace TradingJournal.Wpf
+namespace TradingJournal.wpf
 {
     public partial class App : Application
     {

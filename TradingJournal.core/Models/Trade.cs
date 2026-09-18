@@ -35,6 +35,9 @@ namespace TradingJournal.core.Models
             
         }
 
+        
+        public decimal PnL => CalculatePnL();
+
 
     }
 }

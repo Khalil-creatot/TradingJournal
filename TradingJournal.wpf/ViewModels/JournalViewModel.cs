@@ -1,14 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System.Xml.Linq;
 using TradingJournal.core.Interfaces;
 using TradingJournal.core.Models;
-using TradingJournal.core.Interfaces;
-using TradingJournal.core.Models;
-using TradingJournal.wpf.ViewModels;
 using TradingJournal.wpf.Helpers;
 
-namespace TradingJournal.Wpf.ViewModels
+namespace TradingJournal.wpf.ViewModels
 {
     public class JournalViewModel : BaseViewModel
     {

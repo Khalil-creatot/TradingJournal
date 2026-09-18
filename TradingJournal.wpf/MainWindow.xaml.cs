@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TradingJournal.Wpf
+namespace TradingJournal.wpf
 {
     public partial class MainWindow : Window
     {
