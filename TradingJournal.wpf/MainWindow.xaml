@@ -1,12 +1,42 @@
-﻿<Window x:Class="TradingJournal.wpf.MainWindow"
+﻿<Window x:Class="TradingJournal.Wpf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TradingJournal.wpf"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Trading Journal" Height="700" Width="1100"
+        WindowStartupLocation="CenterScreen"
+        Background="#1E1E2E">
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidomeny -->
+        <StackPanel Grid.Column="0" Background="#181825">
+
+            <TextBlock Text="Trading Journal"
+                       Foreground="#CDD6F4"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Margin="16,24,16,32"
+                       TextWrapping="Wrap"/>
+
+            <Button Content="📒  Journal"
+                    Command="{Binding ShowJournalCommand}"
+                    Style="{StaticResource NavButtonStyle}"/>
+
+            <Button Content="📐  Position Size"
+                    Command="{Binding ShowPositionCalculatorCommand}"
+                    Style="{StaticResource NavButtonStyle}"/>
+
+            <Button Content="📈  Performance"
+                    Command="{Binding ShowPerformanceCommand}"
+                    Style="{StaticResource NavButtonStyle}"/>
+        </StackPanel>
+
+        <!-- Innehållsyta -->
+        <ContentControl Grid.Column="1"
+                        Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>
+    
