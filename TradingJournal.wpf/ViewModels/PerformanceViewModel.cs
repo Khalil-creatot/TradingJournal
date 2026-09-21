@@ -150,39 +150,39 @@ namespace TradingJournal.wpf.ViewModels
             var model = new PlotModel
             {
                 Background = OxyColor.FromArgb(0, 0, 0, 0),
-                PlotAreaBorderColor = OxyColor.FromRgb(46, 46, 66),
-                TextColor = OxyColor.FromRgb(148, 148, 168),
+                PlotAreaBorderColor = OxyColor.FromRgb(226, 232, 240),
+                TextColor = OxyColor.FromRgb(148, 163, 184),
                 IsLegendVisible = true
             };
 
             model.Axes.Add(new LinearAxis
             {
                 Position = AxisPosition.Left,
-                AxislineColor = OxyColor.FromRgb(46, 46, 66),
-                TicklineColor = OxyColor.FromRgb(46, 46, 66),
+                AxislineColor = OxyColor.FromRgb(226, 232, 240),
+                TicklineColor = OxyColor.FromRgb(226, 232, 240),
                 MajorGridlineStyle = LineStyle.Dot,
-                MajorGridlineColor = OxyColor.FromRgb(30, 30, 46),
+                MajorGridlineColor = OxyColor.FromRgb(241, 245, 249),
                 LabelFormatter = value => $"${value:N0}"
             });
 
             model.Axes.Add(new LinearAxis
             {
                 Position = AxisPosition.Bottom,
-                AxislineColor = OxyColor.FromRgb(46, 46, 66),
-                TicklineColor = OxyColor.FromRgb(46, 46, 66),
+                AxislineColor = OxyColor.FromRgb(226, 232, 240),
+                TicklineColor = OxyColor.FromRgb(226, 232, 240),
                 Title = "Trade #",
-                TitleColor = OxyColor.FromRgb(92, 92, 114)
+                TitleColor = OxyColor.FromRgb(148, 163, 184)
             });
 
             var series1 = new LineSeries
             {
                 Title = "Balance (exkl. D/W)",
-                Color = OxyColor.FromRgb(99, 102, 241),
+                Color = OxyColor.FromRgb(37, 99, 235),
                 StrokeThickness = 2.5,
                 MarkerType = MarkerType.Circle,
                 MarkerSize = 5,
-                MarkerFill = OxyColor.FromRgb(99, 102, 241),
-                MarkerStroke = OxyColor.FromRgb(15, 15, 19),
+                MarkerFill = OxyColor.FromRgb(37, 99, 235),
+                MarkerStroke = OxyColors.White,
                 MarkerStrokeThickness = 1.5
             };
             for (int i = 0; i < curve.Count; i++)
@@ -191,13 +191,13 @@ namespace TradingJournal.wpf.ViewModels
             var series2 = new LineSeries
             {
                 Title = "Balance (overall)",
-                Color = OxyColor.FromRgb(34, 197, 94),
+                Color = OxyColor.FromRgb(5, 150, 105),
                 StrokeThickness = 2,
                 LineStyle = LineStyle.Dash,
                 MarkerType = MarkerType.Square,
                 MarkerSize = 4,
-                MarkerFill = OxyColor.FromRgb(34, 197, 94),
-                MarkerStroke = OxyColor.FromRgb(15, 15, 19),
+                MarkerFill = OxyColor.FromRgb(5, 150, 105),
+                MarkerStroke = OxyColors.White,
                 MarkerStrokeThickness = 1.5
             };
             for (int i = 0; i < curveOverall.Count; i++)
@@ -208,11 +208,11 @@ namespace TradingJournal.wpf.ViewModels
 
             PlotModel = model;
         }
-    }
 
-    public class EquityPoint
-    {
-        public int Index { get; set; }
-        public decimal Balance { get; set; }
+        public class EquityPoint
+        {
+            public int Index { get; set; }
+            public decimal Balance { get; set; }
+        }
     }
 }

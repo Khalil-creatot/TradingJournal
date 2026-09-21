@@ -3,11 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:TradingJournal.wpf.ViewModels"
         xmlns:views="clr-namespace:TradingJournal.wpf.Views"
-        Title="Trading Journal" Height="700" Width="1100"
+        Title="Trading Journal"
+        Height="820" Width="1280"
+        MinHeight="650" MinWidth="1000"
         WindowStartupLocation="CenterScreen"
-        Background="#1E1E2E">
+        Background="#F0F4F8">
 
-    
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:JournalViewModel}">
             <views:JournalView/>
@@ -22,36 +23,92 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="220"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Sidomeny -->
-        <StackPanel Grid.Column="0" Background="#181825">
+        <!-- ── Mörk sidebar ── -->
+        <Border Grid.Column="0" Background="#0F172A">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <TextBlock Text="Trading Journal"
-                       Foreground="#CDD6F4"
-                       FontSize="16"
-                       FontWeight="Bold"
-                       Margin="16,24,16,32"
-                       TextWrapping="Wrap"/>
+                <!-- Logotyp -->
+                <StackPanel Grid.Row="0" Margin="20,28,20,36">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                        <Border Background="#2563EB"
+                                CornerRadius="8"
+                                Width="32" Height="32"
+                                Margin="0,0,10,0">
+                            <TextBlock Text="KA"
+                                       Foreground="White"
+                                       FontSize="13"
+                                       FontWeight="Bold"
+                                       HorizontalAlignment="Center" Margin="0,8,0,7"/>
+                        </Border>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Trading Journal"
+                                       Foreground="#F1F5F9"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"/>
+                            <TextBlock Text="v1.0 - By: Khalil Alizadeh"
+                                       Foreground="#475569"
+                                       FontSize="11"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
 
-            <Button Content="📒  Journal"
-                    Command="{Binding ShowJournalCommand}"
-                    Style="{StaticResource NavButtonStyle}"/>
+                <!-- Navigation -->
+                <StackPanel Grid.Row="1">
+                    <TextBlock Text="NAVIGATION"
+                               Foreground="#334155"
+                               FontSize="10"
+                               FontWeight="Bold"
+                               Margin="24,0,0,8"/>
 
-            <Button Content="📐  Position Size"
-                    Command="{Binding ShowPositionCalculatorCommand}"
-                    Style="{StaticResource NavButtonStyle}"/>
+                    <Button Command="{Binding ShowJournalCommand}"
+                            Style="{StaticResource NavButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="📒" FontSize="14" Margin="0,0,10,0"/>
+                            <TextBlock Text="Journal" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
 
-            <Button Content="📈  Performance"
-                    Command="{Binding ShowPerformanceCommand}"
-                    Style="{StaticResource NavButtonStyle}"/>
+                    <Button Command="{Binding ShowPositionCalculatorCommand}"
+                            Style="{StaticResource NavButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="📐" FontSize="14" Margin="0,0,10,0"/>
+                            <TextBlock Text="Position Size" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
 
-        </StackPanel>
+                    <Button Command="{Binding ShowPerformanceCommand}"
+                            Style="{StaticResource NavButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="📈" FontSize="14" Margin="0,0,10,0"/>
+                            <TextBlock Text="Performance" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
 
-        <!-- Innehållsyta -->
+                <!-- Footer -->
+                <Border Grid.Row="2"
+                        BorderBrush="#1E293B"
+                        BorderThickness="0,1,0,0"
+                        Padding="20,16">
+                    <TextBlock Text="© 2026 Trading Journal"
+                               Foreground="#334155"
+                               FontSize="11"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- ── Innehållsyta ── -->
         <ContentControl Grid.Column="1"
-                        Content="{Binding CurrentViewModel}"/>
+                        Content="{Binding CurrentViewModel}"
+                        Background="#F0F4F8"/>
     </Grid>
 </Window>

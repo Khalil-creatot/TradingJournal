@@ -1,88 +1,66 @@
 ﻿<UserControl x:Class="TradingJournal.wpf.Views.JournalView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Background="#1E1E2E">
+             Background="#F0F4F8">
 
-    <UserControl.Resources>
-
-        <!-- Stil för formuläretiketter -->
-        <Style x:Key="LabelStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#CDD6F4"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Margin" Value="0,0,0,4"/>
-        </Style>
-
-        <!-- Stil för textrutor -->
-        <Style x:Key="InputStyle" TargetType="TextBox">
-            <Setter Property="Background" Value="#313244"/>
-            <Setter Property="Foreground" Value="#CDD6F4"/>
-            <Setter Property="BorderBrush" Value="#45475A"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="8,6"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Margin" Value="0,0,0,12"/>
-        </Style>
-
-        <!-- Stil för primärknapp -->
-        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#89B4FA"/>
-            <Setter Property="Foreground" Value="#1E1E2E"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="16,10"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Margin" Value="0,0,8,0"/>
-        </Style>
-
-        <!-- Stil för sekundärknapp -->
-        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#45475A"/>
-            <Setter Property="Foreground" Value="#CDD6F4"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="16,10"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
-
-    </UserControl.Resources>
-
-    <Grid Margin="24">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- ── Rubrik ── -->
-        <TextBlock Grid.Row="0"
-                   Text="Trading Journal"
-                   Foreground="#CDD6F4"
-                   FontSize="22"
-                   FontWeight="Bold"
-                   Margin="0,0,0,20"/>
+        <!-- ── Sidhuvud ── -->
+        <Border Grid.Row="0"
+                Background="#FFFFFF"
+                BorderBrush="#E2E8F0"
+                BorderThickness="0,0,0,1"
+                Padding="28,20">
+            <Grid>
+                <StackPanel>
+                    <TextBlock Text="Journal"
+                               Foreground="#0F172A"
+                               FontSize="20"
+                               FontWeight="Bold"/>
+                    <TextBlock Text="Logga och hantera dina trades"
+                               Foreground="#94A3B8"
+                               FontSize="12"
+                               Margin="0,3,0,0"/>
+                </StackPanel>
+                <TextBlock HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Foreground="#94A3B8"
+                           FontSize="12">
+                    <Run Text="{Binding Trades.Count, Mode=OneWay}"/>
+                    <Run Text="trades totalt"/>
+                </TextBlock>
+            </Grid>
+        </Border>
 
-        <!-- ── Formulär för ny trade ── -->
+        <!-- ── Formulär ── -->
         <Border Grid.Row="1"
-                Background="#181825"
-                CornerRadius="8"
-                Padding="20"
-                Margin="0,0,0,20">
+                Style="{StaticResource CardStyle}"
+                Margin="24,20,24,0">
             <StackPanel>
 
-                <TextBlock Text="Lägg till trade"
-                           Foreground="#89B4FA"
-                           FontSize="14"
-                           FontWeight="Bold"
-                           Margin="0,0,0,16"/>
+                <TextBlock Text="NY TRADE"
+                           Style="{StaticResource SectionLabel}"/>
 
-                <!-- Rad 1: Asset, Datum, Long/Short -->
-                <Grid Margin="0,0,0,0">
+                <!-- Rad 1: alla prisfält -->
+                <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
@@ -90,236 +68,349 @@
                         <TextBlock Text="Asset" Style="{StaticResource LabelStyle}"/>
                         <TextBox Text="{Binding Asset, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource InputStyle}"
-                                 CharacterCasing="Upper"/>
+                                 CharacterCasing="Upper"
+                                 Height="38"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="2">
                         <TextBlock Text="Datum" Style="{StaticResource LabelStyle}"/>
                         <DatePicker SelectedDate="{Binding CloseDate}"
-                                    Background="#313244"
-                                    Foreground="#CDD6F4"
-                                    Margin="0,0,0,12"/>
+                                    Height="38"
+                                    FontSize="13"
+                                    Background="#F8FAFC"
+                                    BorderBrush="#E2E8F0"
+                                    BorderThickness="1"
+                                    Foreground="#0F172A"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="4">
-                        <TextBlock Text="Riktning" Style="{StaticResource LabelStyle}"/>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                            <RadioButton Content="Long"
-                                         IsChecked="{Binding IsLong}"
-                                         Foreground="#A6E3A1"
-                                         Margin="0,0,16,0"/>
-                            <RadioButton Content="Short"
-                                         IsChecked="{Binding IsLong, Converter={StaticResource InverseBoolConverter}}"
-                                         Foreground="#F38BA8"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
-
-                <!-- Rad 2: Entry, SL, TP, Exit -->
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="16"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="16"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="16"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Grid.Column="0">
                         <TextBlock Text="Entry" Style="{StaticResource LabelStyle}"/>
                         <TextBox Text="{Binding Entry, UpdateSourceTrigger=LostFocus}"
-                                 Style="{StaticResource InputStyle}"/>
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="2">
-                        <TextBlock Text="Stop Loss" Style="{StaticResource LabelStyle}"/>
-                        <TextBox Text="{Binding StopLoss, UpdateSourceTrigger=LostFocus}"
-                                 Style="{StaticResource InputStyle}"/>
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="4">
-                        <TextBlock Text="Take Profit" Style="{StaticResource LabelStyle}"/>
-                        <TextBox Text="{Binding TakeProfit, UpdateSourceTrigger=LostFocus}"
-                                 Style="{StaticResource InputStyle}"/>
+                                 Style="{StaticResource InputStyle}"
+                                 Height="38"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="6">
+                        <TextBlock Text="Stop Loss" Style="{StaticResource LabelStyle}"/>
+                        <TextBox Text="{Binding StopLoss, UpdateSourceTrigger=LostFocus}"
+                                 Style="{StaticResource InputStyle}"
+                                 Height="38"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="8">
+                        <TextBlock Text="Take Profit" Style="{StaticResource LabelStyle}"/>
+                        <TextBox Text="{Binding TakeProfit, UpdateSourceTrigger=LostFocus}"
+                                 Style="{StaticResource InputStyle}"
+                                 Height="38"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="10">
                         <TextBlock Text="Exit" Style="{StaticResource LabelStyle}"/>
                         <TextBox Text="{Binding ExitPrice, UpdateSourceTrigger=LostFocus}"
-                                 Style="{StaticResource InputStyle}"/>
+                                 Style="{StaticResource InputStyle}"
+                                 Height="38"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="12">
+                        <TextBlock Text="Amount" Style="{StaticResource LabelStyle}"/>
+                        <TextBox Text="{Binding Amount, UpdateSourceTrigger=LostFocus}"
+                                 Style="{StaticResource InputStyle}"
+                                 Height="38"/>
                     </StackPanel>
                 </Grid>
 
-                <!-- Rad 3: Amount, Deposit, Withdraw -->
-                <Grid>
+                <!-- Rad 2: deposit, withdraw, notes, riktning, knappar -->
+                <Grid Margin="0,12,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="16"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0">
-                        <TextBlock Text="Amount (enheter)" Style="{StaticResource LabelStyle}"/>
-                        <TextBox Text="{Binding Amount, UpdateSourceTrigger=LostFocus}"
-                                 Style="{StaticResource InputStyle}"/>
+                        <TextBlock Text="Insättning ($)" Style="{StaticResource LabelStyle}"/>
+                        <TextBox Text="{Binding Deposit, UpdateSourceTrigger=LostFocus}"
+                                 Style="{StaticResource InputStyle}"
+                                 Height="38"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="2">
-                        <TextBlock Text="Insättning ($)" Style="{StaticResource LabelStyle}"/>
-                        <TextBox Text="{Binding Deposit, UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{StaticResource InputStyle}"/>
+                        <TextBlock Text="Uttag ($)" Style="{StaticResource LabelStyle}"/>
+                        <TextBox Text="{Binding Withdraw, UpdateSourceTrigger=LostFocus}"
+                                 Style="{StaticResource InputStyle}"
+                                 Height="38"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="4">
-                        <TextBlock Text="Uttag ($)" Style="{StaticResource LabelStyle}"/>
-                        <TextBox Text="{Binding Withdraw, UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{StaticResource InputStyle}"/>
+                        <TextBlock Text="Anteckningar" Style="{StaticResource LabelStyle}"/>
+                        <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource InputStyle}"
+                                 Height="38"/>
                     </StackPanel>
-                </Grid>
 
-                <!-- Anteckningar -->
-                <TextBlock Text="Anteckningar" Style="{StaticResource LabelStyle}"/>
-                <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
-                         Style="{StaticResource InputStyle}"
-                         Height="60"
-                         TextWrapping="Wrap"
-                         AcceptsReturn="True"/>
+                    <!-- Long/Short -->
+                    <StackPanel Grid.Column="6" VerticalAlignment="Bottom">
+                        <TextBlock Text="Riktning" Style="{StaticResource LabelStyle}"/>
+                        <StackPanel Orientation="Horizontal" Height="38">
+                            <Border x:Name="LongBorder"
+                                    Background="#ECFDF5"
+                                    BorderBrush="#059669"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    Padding="14,0"
+                                    Margin="0,0,6,0">
+                                <RadioButton Content="Long"
+                                             IsChecked="{Binding IsLong}"
+                                             Foreground="#059669"
+                                             FontWeight="SemiBold"
+                                             FontSize="13"
+                                             VerticalAlignment="Center"
+                                             BorderThickness="0"/>
+                            </Border>
+                            <Border Background="#FEF2F2"
+                                    BorderBrush="#DC2626"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    Padding="14,0">
+                                <RadioButton Content="Short"
+                                             IsChecked="{Binding IsLong,
+                                                 Converter={StaticResource InverseBoolConverter}}"
+                                             Foreground="#DC2626"
+                                             FontWeight="SemiBold"
+                                             FontSize="13"
+                                             VerticalAlignment="Center"
+                                             BorderThickness="0"/>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Knappar -->
+                    <Button Grid.Column="8"
+                            Content="Rensa"
+                            Command="{Binding ClearFormCommand}"
+                            Style="{StaticResource SecondaryBtn}"
+                            Height="38"
+                            VerticalAlignment="Bottom"
+                            Margin="0,21,0,0"/>
+
+                    <Button Grid.Column="10"
+                            Content="+ Lägg till trade"
+                            Command="{Binding AddTradeCommand}"
+                            Style="{StaticResource PrimaryBtn}"
+                            Height="38"
+                            VerticalAlignment="Bottom"
+                            Margin="0,21,0,0"/>
+                </Grid>
 
                 <!-- Felmeddelande -->
                 <TextBlock Text="{Binding ErrorMessage}"
-                           Foreground="#F38BA8"
+                           Foreground="#DC2626"
                            FontSize="12"
-                           Margin="0,0,0,8"
+                           Margin="0,10,0,0"
                            Visibility="{Binding ErrorMessage,
                                Converter={StaticResource StringToVisibilityConverter}}"/>
-
-                <!-- Knappar -->
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="➕  Lägg till trade"
-                            Command="{Binding AddTradeCommand}"
-                            Style="{StaticResource PrimaryButtonStyle}"/>
-                    <Button Content="🗑  Rensa"
-                            Command="{Binding ClearFormCommand}"
-                            Style="{StaticResource SecondaryButtonStyle}"/>
-                </StackPanel>
 
             </StackPanel>
         </Border>
 
         <!-- ── Journaltabell ── -->
         <Border Grid.Row="2"
-                Background="#181825"
-                CornerRadius="8"
-                Padding="20">
-            <DataGrid ItemsSource="{Binding Trades}"
-                      SelectedItem="{Binding SelectedTrade}"
-                      AutoGenerateColumns="False"
-                      IsReadOnly="True"
-                      Background="#181825"
-                      Foreground="#CDD6F4"
-                      BorderThickness="0"
-                      GridLinesVisibility="Horizontal"
-                      HorizontalGridLinesBrush="#313244"
-                      RowBackground="#181825"
-                      AlternatingRowBackground="#1E1E2E"
-                      ColumnHeaderHeight="36"
-                      RowHeight="36"
-                      SelectionMode="Single"
-                      CanUserResizeRows="False">
+                Style="{StaticResource CardStyle}"
+                Margin="24,16,24,24">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="DataGridColumnHeader">
-                        <Setter Property="Background" Value="#313244"/>
-                        <Setter Property="Foreground" Value="#89B4FA"/>
-                        <Setter Property="FontSize" Value="12"/>
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="Padding" Value="12,0"/>
-                        <Setter Property="BorderThickness" Value="0"/>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
+                <TextBlock Grid.Row="0"
+                           Text="HISTORIK"
+                           Style="{StaticResource SectionLabel}"/>
 
-                <DataGrid.CellStyle>
-                    <Style TargetType="DataGridCell">
-                        <Setter Property="BorderThickness" Value="0"/>
-                        <Setter Property="Padding" Value="12,0"/>
-                        <Setter Property="Foreground" Value="#CDD6F4"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="#313244"/>
-                                <Setter Property="Foreground" Value="#CDD6F4"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </DataGrid.CellStyle>
+                <DataGrid Grid.Row="1"
+                          ItemsSource="{Binding Trades}"
+                          SelectedItem="{Binding SelectedTrade}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          Background="Transparent"
+                          Foreground="#0F172A"
+                          BorderThickness="0"
+                          GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="#F1F5F9"
+                          RowBackground="Transparent"
+                          AlternatingRowBackground="#FAFAFA"
+                          ColumnHeaderHeight="36"
+                          RowHeight="42"
+                          SelectionMode="Single"
+                          CanUserResizeRows="False"
+                          SelectionUnit="FullRow">
 
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Datum"
-                                        Binding="{Binding CloseDate, StringFormat=yyyy-MM-dd}"
-                                        Width="100"/>
-                    <DataGridTextColumn Header="Asset"
-                                        Binding="{Binding Asset}"
-                                        Width="80"/>
-                    <DataGridTextColumn Header="L/S"
-                                        Binding="{Binding TradeType}"
-                                        Width="60"/>
-                    <DataGridTextColumn Header="Entry"
-                                        Binding="{Binding Entry, StringFormat=N2}"
-                                        Width="90"/>
-                    <DataGridTextColumn Header="SL"
-                                        Binding="{Binding StopLoss, StringFormat=N2}"
-                                        Width="90"/>
-                    <DataGridTextColumn Header="TP"
-                                        Binding="{Binding TakeProfit, StringFormat=N2}"
-                                        Width="90"/>
-                    <DataGridTextColumn Header="Exit"
-                                        Binding="{Binding ExitPrice, StringFormat=N2}"
-                                        Width="90"/>
-                    <DataGridTextColumn Header="Amount"
-                                        Binding="{Binding Amount, StringFormat=N8}"
-                                        Width="110"/>
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#94A3B8"/>
+                            <Setter Property="FontSize" Value="11"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Padding" Value="12,0"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
 
-                    <!-- PnL med färgkodning via DataGridTemplateColumn -->
-                    <DataGridTemplateColumn Header="PnL ($)" Width="90">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding PnL, StringFormat=N2}"
-                                           Padding="12,0">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock">
-                                            <Setter Property="Foreground" Value="#A6E3A1"/>
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding PnL,
-                                                    Converter={StaticResource IsNegativeConverter}}"
-                                                    Value="True">
-                                                    <Setter Property="Foreground" Value="#F38BA8"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#EFF6FF"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#DBEAFE"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
 
-                    <DataGridTextColumn Header="Anteckningar"
-                                        Binding="{Binding Notes}"
-                                        Width="*"/>
-                </DataGrid.Columns>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Padding" Value="12,0"/>
+                            <Setter Property="Foreground" Value="#0F172A"/>
+                            <Setter Property="FontSize" Value="13"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="#0F172A"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
 
-                <!-- Högerklicksmeny för att ta bort trade -->
-                <DataGrid.ContextMenu>
-                    <ContextMenu Background="#313244">
-                        <MenuItem Header="🗑  Ta bort trade"
-                                  Command="{Binding DeleteTradeCommand}"
-                                  Foreground="#F38BA8"/>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
 
-            </DataGrid>
+                        <DataGridTextColumn Header="DATUM"
+                                            Binding="{Binding CloseDate, StringFormat=yyyy-MM-dd}"
+                                            Width="110"
+                                            FontSize="12"/>
+
+                        <DataGridTextColumn Header="ASSET"
+                                            Binding="{Binding Asset}"
+                                            Width="80"
+                                            FontWeight="SemiBold"/>
+
+                        <!-- L/S badge -->
+                        <DataGridTemplateColumn Header="L/S" Width="80">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="4"
+                                            Padding="8,3"
+                                            HorizontalAlignment="Left"
+                                            Margin="8,0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="Background" Value="#ECFDF5"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding TradeType}"
+                                                                 Value="Short">
+                                                        <Setter Property="Background" Value="#FEF2F2"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <TextBlock Text="{Binding TradeType}"
+                                                   FontSize="11"
+                                                   FontWeight="Bold">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Foreground" Value="#059669"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding TradeType}"
+                                                                     Value="Short">
+                                                            <Setter Property="Foreground" Value="#DC2626"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Header="ENTRY"
+                                            Binding="{Binding Entry, StringFormat=N2}"
+                                            Width="100"/>
+                        <DataGridTextColumn Header="SL"
+                                            Binding="{Binding StopLoss, StringFormat=N2}"
+                                            Width="100"/>
+                        <DataGridTextColumn Header="TP"
+                                            Binding="{Binding TakeProfit, StringFormat=N2}"
+                                            Width="100"/>
+                        <DataGridTextColumn Header="EXIT"
+                                            Binding="{Binding ExitPrice, StringFormat=N2}"
+                                            Width="100"/>
+                        <DataGridTextColumn Header="AMOUNT"
+                                            Binding="{Binding Amount, StringFormat=N8}"
+                                            Width="130"
+                                            FontSize="12"/>
+
+                        <!-- PnL -->
+                        <DataGridTemplateColumn Header="PNL ($)" Width="110">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="12,0"
+                                               FontWeight="SemiBold"
+                                               FontSize="13"
+                                               VerticalAlignment="Center">
+                                        <TextBlock.Text>
+                                            <Binding Path="PnL" StringFormat="N2"/>
+                                        </TextBlock.Text>
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="#059669"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding PnL,
+                                                        Converter={StaticResource IsNegativeConverter}}"
+                                                        Value="True">
+                                                        <Setter Property="Foreground" Value="#DC2626"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Header="ANTECKNINGAR"
+                                            Binding="{Binding Notes}"
+                                            Width="*"
+                                            FontSize="12"/>
+                    </DataGrid.Columns>
+
+                    <DataGrid.ContextMenu>
+                        <ContextMenu Background="#FFFFFF"
+                                     BorderBrush="#E2E8F0"
+                                     BorderThickness="1">
+                            <MenuItem Header="Ta bort trade"
+                                      Command="{Binding DeleteTradeCommand}"
+                                      Foreground="#DC2626"
+                                      Background="#FFFFFF"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+
+                </DataGrid>
+            </Grid>
         </Border>
+
     </Grid>
 </UserControl>
