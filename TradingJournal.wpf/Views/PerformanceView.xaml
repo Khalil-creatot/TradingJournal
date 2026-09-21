@@ -1,10 +1,224 @@
 ﻿<UserControl x:Class="TradingJournal.wpf.Views.PerformanceView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Background="#1E1E2E">
-    <TextBlock Text="Performance – kommer snart"
-               Foreground="#CDD6F4"
-               FontSize="18"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
+             xmlns:oxy="http://oxyplot.org/wpf"
+             Background="#0F0F13">
+
+    <UserControl.Resources>
+        <Style x:Key="MetricCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#1A1A24"/>
+            <Setter Property="BorderBrush" Value="#2E2E42"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,12,12"/>
+            <Setter Property="Width" Value="170"/>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="28">
+
+            <!-- ── Rubrik ── -->
+            <Grid Margin="0,0,0,24">
+                <StackPanel>
+                    <TextBlock Text="Performance"
+                               Foreground="#F1F1F5"
+                               FontSize="24"
+                               FontWeight="Bold"/>
+                    <TextBlock Text="Utvärdera din handelsstrategi"
+                               Foreground="#5C5C72"
+                               FontSize="13"
+                               Margin="0,4,0,0"/>
+                </StackPanel>
+                <Button Content="↻  Uppdatera"
+                        Command="{Binding RefreshCommand}"
+                        Style="{StaticResource SecondaryBtn}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Height="36"/>
+            </Grid>
+
+            <!-- ── Nyckeltal ── -->
+            <TextBlock Text="NYCKELTAL"
+                       Foreground="#5C5C72"
+                       FontSize="10"
+                       FontWeight="Bold"
+                       Margin="0,0,0,12"/>
+
+            <WrapPanel Margin="0,0,0,8">
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="ANTAL TRADES"
+                                   Foreground="#5C5C72"
+                                   FontSize="10"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding TotalTrades}"
+                                   Foreground="#F1F1F5"
+                                   FontSize="28"
+                                   FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="TOTAL PNL"
+                                   Foreground="#5C5C72"
+                                   FontSize="10"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding TotalPnL, StringFormat=${0:N2}}"
+                                   FontSize="28"
+                                   FontWeight="Bold">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="#22C55E"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding TotalPnL,
+                                            Converter={StaticResource IsNegativeConverter}}"
+                                            Value="True">
+                                            <Setter Property="Foreground" Value="#EF4444"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="WIN RATE"
+                                   Foreground="#5C5C72"
+                                   FontSize="10"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding WinRate, StringFormat={}{0:N1}%}"
+                                   Foreground="#F1F1F5"
+                                   FontSize="28"
+                                   FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="EXPECTANCY"
+                                   Foreground="#5C5C72"
+                                   FontSize="10"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding Expectancy, StringFormat=${0:N2}}"
+                                   Foreground="#F1F1F5"
+                                   FontSize="28"
+                                   FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="WIN/LOSS RATIO"
+                                   Foreground="#5C5C72"
+                                   FontSize="10"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding WinLossRatio, StringFormat={}{0:N2}}"
+                                   Foreground="#F1F1F5"
+                                   FontSize="28"
+                                   FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="MAX DRAWDOWN"
+                                   Foreground="#5C5C72"
+                                   FontSize="10"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding MaxDrawdown, StringFormat={}{0:N4}%}"
+                                   Foreground="#EF4444"
+                                   FontSize="24"
+                                   FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="PEAK EQUITY"
+                                   Foreground="#5C5C72"
+                                   FontSize="10"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding PeakEquity, StringFormat=${0:N2}}"
+                                   Foreground="#22C55E"
+                                   FontSize="24"
+                                   FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="LOWEST EQUITY"
+                                   Foreground="#5C5C72"
+                                   FontSize="10"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding LowestEquity, StringFormat=${0:N2}}"
+                                   Foreground="#F59E0B"
+                                   FontSize="24"
+                                   FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="CONS. WINS"
+                                   Foreground="#5C5C72"
+                                   FontSize="10"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding ConsecutiveWins}"
+                                   Foreground="#22C55E"
+                                   FontSize="28"
+                                   FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="CONS. LOSSES"
+                                   Foreground="#5C5C72"
+                                   FontSize="10"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding ConsecutiveLosses}"
+                                   Foreground="#EF4444"
+                                   FontSize="28"
+                                   FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+            </WrapPanel>
+
+            <!-- ── Equity curve ── -->
+            <TextBlock Text="EQUITY CURVE"
+                       Foreground="#5C5C72"
+                       FontSize="10"
+                       FontWeight="Bold"
+                       Margin="0,8,0,12"/>
+
+            <Border Background="#1A1A24"
+                    BorderBrush="#2E2E42"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="16"
+                    Height="320">
+                <oxy:PlotView Model="{Binding PlotModel}"
+                              Background="Transparent"/>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
