@@ -99,7 +99,7 @@
                         BorderBrush="#1E293B"
                         BorderThickness="0,1,0,0"
                         Padding="20,16">
-                    <TextBlock Text="© 2026 Trading Journal"
+                    <TextBlock Text="Trading Journal 2026"
                                Foreground="#334155"
                                FontSize="11"/>
                 </Border>
