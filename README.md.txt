@@ -113,7 +113,7 @@ git clone https://github.com/Khalil-creatot/TradingJournal.git
 
 ---
 
-## 🧪 Tester
+##  Tester
 
 Projektet innehåller enhetstester för all beräkningslogik:
 
